@@ -2,3 +2,4 @@ _site/
 lib
 node_modules/
 .jekyll-metadata
+.jekyll-cache
