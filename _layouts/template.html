@@ -44,7 +44,7 @@ function drawDitherResult(canvas, ditherer, text, append) {
   var output = document.getElementById('output');
   console.log(ditherer);
   ctx.putImageData(gleech[ditherer](imageData), 0, 0);
-  var img = document.createElement('img');
+  var img = new Image();
 	img.setAttribute('crossOrigin', 'anonymous');
   img.src = canvas.toDataURL('image/png');
   img.alt = ditherer;
