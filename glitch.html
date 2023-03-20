@@ -20,11 +20,11 @@ layout: template
         // Closure to capture the file information.
         reader.onload = function(e) {
             var img = document.createElement("img");
-						img.setAttribute('crossOrigin', 'anonymous');
+						img.crossOrigin = 'anonymous';
             img.onload = function() {
                 var width = img.width;
                 var height = img.height;
-								img.setAttribute('crossOrigin', 'anonymous');
+                img.crossOrigin = 'anonymous';
                 var canvas = document.createElement('canvas');
                 canvas.width = width;
                 canvas.height = height;

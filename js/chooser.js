@@ -42,10 +42,9 @@ function handleFileSelect(e) {
   var reader = new FileReader();
   // Closure to capture the file information.
   reader.onload = function(e) {
-    img = document.createElement("img");
+    img = new Image();
 		img.setAttribute('crossOrigin', 'anonymous');
     img.onload = function() {
-			img.setAttribute('crossOrigin', 'anonymous');
       orig_img = img;
       generate(img,"original");
     };
