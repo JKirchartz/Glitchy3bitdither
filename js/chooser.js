@@ -10,7 +10,7 @@ var picker = document.createElement("select"),
   form = document.getElementById("form"),
   functions = gleech.orig.concat(gleech.exp.concat(['theWorks','glitch','randomGlitch'])),
   functions = functions.sort(),
-  img, orig_img;
+  orig_img;
 
 functions.unshift('original');
 
@@ -42,7 +42,7 @@ function handleFileSelect(e) {
   var reader = new FileReader();
   // Closure to capture the file information.
   reader.onload = function(e) {
-    img = new Image();
+    var img = new Image();
 		img.setAttribute('crossOrigin', 'anonymous');
     img.onload = function() {
       orig_img = img;
