@@ -17,9 +17,6 @@ Jimp.prototype.ditherBitmask = function ditherBitmask(mask, cb) {
 	// 0xe0  3 bits
 	// 0xf0  4 bits
 	for (var i = 0, size = width * height * 4; i < size; i += 4) {
-		// data[i] |= M;
-		// data[i + 1] |= M;
-		// data[i + 2] |= M;
 		data[i] |= M;
 		data[i + 1] |= M;
 		data[i + 2] |= M;
