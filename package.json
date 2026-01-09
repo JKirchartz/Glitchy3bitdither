@@ -20,14 +20,19 @@
     "jimp": "^0.2.27"
   },
   "devDependencies": {
-    "grunt": "^1.0.1",
-    "grunt-contrib-concat": "^1.0.1",
-    "grunt-contrib-jshint": "^1.1.0"
+    "eslint": "^8.56.0",
+    "@eslint/js": "^8.56.0",
+    "rollup": "^4.10.0",
+    "@rollup/plugin-commonjs": "^25.0.0",
+    "@rollup/plugin-node-resolve": "^15.0.0"
   },
   "scripts": {
-    "test": "grunt && cd test && node test.js",
+    "build": "rollup -c",
+    "build:watch": "rollup -c -w",
+    "lint": "eslint source/",
+    "lint:fix": "eslint source/ --fix",
+    "test": "npm run lint && node test/test.js",
     "gleech": "node index.js",
-    "build": "grunt",
     "deploy": "git subtree push --prefix site origin gh-pages"
   },
   "repository": {
