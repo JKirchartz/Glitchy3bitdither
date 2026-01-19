@@ -2,7 +2,7 @@
  * Dither: 8 bits
  * @param {number} size - a number greater than 1 representing pixel size.
  */
-import Jimp from "jimp";
+import { Jimp } from "jimp";
 import { throwError,nullOrUndefined,randRange,isNodePattern } from "../helpers.js";
 Jimp.prototype.dither8Bit = function dither8Bit(size, cb) {
   size = nullOrUndefined(size) ? randRange(4, 15) : size;
@@ -45,7 +45,7 @@ Jimp.prototype.dither8Bit = function dither8Bit(size, cb) {
       }
     }
   }
-  this.bitmap.data = new Buffer(data);
+  this.bitmap.data = Buffer.from(data);
   if (isNodePattern(cb)) return cb.call(this, null, this);
   else return this;
 };

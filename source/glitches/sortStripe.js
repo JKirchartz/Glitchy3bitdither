@@ -4,7 +4,7 @@
  * @param {integer} start - pixel to start at
  * @param {integer} end - pixel to end at
  */
-import Jimp from "jimp";
+import { Jimp } from "jimp";
 import { nullOrUndefined,randMinMax,randMinMax2,leftSort,isNodePattern } from "../helpers.js";
 Jimp.prototype.sortStripe = function sortStripe(dir, start, end, cb) {
   let width = this.bitmap.width,
@@ -29,7 +29,7 @@ Jimp.prototype.sortStripe = function sortStripe(dir, start, end, cb) {
     da.copyWithin(data, i + mm[0]);
   }
 
-  this.bitmap.data = new Buffer(data);
+  this.bitmap.data = Buffer.from(data);
   if (isNodePattern(cb)) return cb.call(this, null, this);
   else return this;
 };

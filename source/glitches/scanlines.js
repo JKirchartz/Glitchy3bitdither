@@ -4,7 +4,7 @@
  * @param {number} size - size between scanlines, numbers between 3 and 15 look nice
  * @param {number} option - 0, 1, 2, or 3, to determine which value to use with Or or Xor
  */
-import Jimp from "jimp";
+import { Jimp } from "jimp";
 import { nullOrUndefined,randRange,randChoice,isNodePattern } from "../helpers.js";
 Jimp.prototype.scanlines = function scanlines(type, size, option, cb) {
   const width = this.bitmap.width,
@@ -32,7 +32,7 @@ Jimp.prototype.scanlines = function scanlines(type, size, option, cb) {
     data.set(row, i);
   }
 
-  this.bitmap.data = new Buffer(data);
+  this.bitmap.data = Buffer.from(data);
   if (isNodePattern(cb)) return cb.call(this, null, this);
   else return this;
 };

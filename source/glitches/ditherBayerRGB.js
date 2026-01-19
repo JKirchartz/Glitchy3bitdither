@@ -2,7 +2,7 @@
  * Dither: Bayer 3 - full-color bayer algo
  * @param {number} map - which matrix to use for the threshold map - 0: 3x3,  1: 4x4, 2: 8x8
  */
-import Jimp from "jimp";
+import { Jimp } from "jimp";
 import { throwError,nullOrUndefined,randFloor,isNodePattern } from "../helpers.js";
 Jimp.prototype.ditherBayer3 = function ditherBayer3(map, cb) {
   map = !nullOrUndefined(map) ? map : randFloor(3);
@@ -51,7 +51,7 @@ Jimp.prototype.ditherBayer3 = function ditherBayer3(map, cb) {
 							size][y % size] ? 0 : 0xff;
     }
   }
-  this.bitmap.data = new Buffer(data);
+  this.bitmap.data = Buffer.from(data);
   if (isNodePattern(cb)) return cb.call(this, null, this);
   else return this;
 };

@@ -3,7 +3,7 @@
  * Green Shift
  * @param {number} factor - factor by which to reduce red and blue channels and boost green channel
  */
-import Jimp from "jimp";
+import { Jimp } from "jimp";
 import { throwError,nullOrUndefined,randFloor,isNodePattern } from "../helpers.js";
 Jimp.prototype.greenShift = function greenShift(factor, cb) {
   if (!nullOrUndefined(factor)) {
@@ -22,7 +22,7 @@ Jimp.prototype.greenShift = function greenShift(factor, cb) {
     data[i + 1] = (shift) > 255 ? 255 : shift;
     data[i + 2] -= factor;
   }
-  this.bitmap.data = new Buffer(data);
+  this.bitmap.data = Buffer.from(data);
   if (isNodePattern(cb)) return cb.call(this, null, this);
   else return this;
 };

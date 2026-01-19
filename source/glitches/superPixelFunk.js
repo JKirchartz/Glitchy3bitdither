@@ -2,7 +2,7 @@
  * Super Pixel Funk
  * @param {number} pixelation - size of pixels to use for pixelization
  */
-import Jimp from "jimp";
+import { Jimp } from "jimp";
 import { throwError,nullOrUndefined,randRange,coinToss,randChoice,isNodePattern } from "../helpers.js";
 Jimp.prototype.superPixelFunk = function superPixelFunk(pixelation, cb) {
   if (!nullOrUndefined(pixelation)) {

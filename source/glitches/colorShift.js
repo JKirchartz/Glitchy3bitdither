@@ -4,7 +4,7 @@
  * Color Shift
  * @param {boolean} dir - direction to shift colors, true for RGB->GBR, false for RGB->BRG.
  */
-import Jimp from "jimp";
+import { Jimp } from "jimp";
 import { throwError,nullOrUndefined,coinToss,isNodePattern } from "../helpers.js";
 Jimp.prototype.colorShift = function colorShift(dir, cb) {
   const width = this.bitmap.width,
@@ -22,7 +22,7 @@ Jimp.prototype.colorShift = function colorShift(dir, cb) {
     data[i + 1] = dir ? b : r;
     data[i + 2] = dir ? r : g;
   }
-  this.bitmap.data = new Buffer(data);
+  this.bitmap.data = Buffer.from(data);
   if (isNodePattern(cb)) return cb.call(this, null, this);
   else return this;
 };

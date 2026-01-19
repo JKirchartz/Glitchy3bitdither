@@ -1,9 +1,9 @@
 {
   "name": "gleech",
-  "version": "0.2.1",
+  "version": "0.3.0",
   "description": "Image glitching & dithering in NodeJS",
   "main": "index.js",
-	"bin": "./bin/gleech",
+  "bin": "./bin/gleech",
   "contributors": [
     {
       "name": "Nolan Caudill",
@@ -17,14 +17,17 @@
   ],
   "dependencies": {
     "commander": "^2.11.0",
-    "jimp": "^0.2.27"
+    "jimp": "^1.6.0"
   },
   "devDependencies": {
-    "eslint": "^8.56.0",
     "@eslint/js": "^8.56.0",
-    "rollup": "^4.10.0",
+    "@rollup/plugin-alias": "^6.0.0",
     "@rollup/plugin-commonjs": "^25.0.0",
-    "@rollup/plugin-node-resolve": "^15.0.0"
+    "@rollup/plugin-json": "^6.1.0",
+    "@rollup/plugin-node-resolve": "^15.3.1",
+    "eslint": "^8.56.0",
+    "rollup": "^4.10.0",
+    "rollup-plugin-polyfill-node": "^0.13.0"
   },
   "scripts": {
     "build": "rollup -c",
@@ -33,6 +36,8 @@
     "lint:fix": "eslint source/ --fix",
     "test": "npm run lint && node test/test.js",
     "gleech": "node index.js",
+    "serve": "jekyll serve --source site --destination site/_site --baseurl '' --incremental",
+    "serve:watch": "npm run build:watch & npm run serve",
     "deploy": "git subtree push --prefix site origin gh-pages"
   },
   "repository": {

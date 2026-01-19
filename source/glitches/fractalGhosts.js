@@ -3,7 +3,7 @@
  * @param {number} type - A number from 0-3 determining which algorithm to use
  * @param {number} color - The color channel to use to create the ghosts
  */
-import Jimp from "jimp";
+import { Jimp } from "jimp";
 import { throwError,nullOrUndefined,randRange,isNodePattern } from "../helpers.js";
 Jimp.prototype.fractalGhosts = function fractalGhosts(type, color, cb) {
   if(!nullOrUndefined(type)) {
@@ -65,7 +65,7 @@ Jimp.prototype.fractalGhosts = function fractalGhosts(type, color, cb) {
     }
     break;
   }
-  this.bitmap.data = new Buffer(data);
+  this.bitmap.data = Buffer.from(data);
   if (isNodePattern(cb)) return cb.call(this, null, this);
   else return this;
 };

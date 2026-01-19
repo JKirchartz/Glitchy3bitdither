@@ -1,7 +1,7 @@
 /**
  * Glitch - randomly choose glitch functions to perform on the incoming image
  */
-import Jimp from "jimp";
+import { Jimp } from "jimp";
 import { randFloor, randRange, coinToss, isNodePattern, debug } from "../helpers.js";
 Jimp.prototype.glitch = function (cb) {
   // chose and run random functions

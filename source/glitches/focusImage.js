@@ -2,7 +2,7 @@
  * Focus Image
  * @param {number} pixelation - size of pixels to use for pixelization
  */
-import Jimp from "jimp";
+import { Jimp } from "jimp";
 import { throwError,nullOrUndefined,randRange,isNodePattern } from "../helpers.js";
 Jimp.prototype.focusImage = function focusImage(pixelation, cb) {
   if (!nullOrUndefined(pixelation)) {

@@ -2,7 +2,7 @@
 
 Object.defineProperty(exports, '__esModule', { value: true });
 
-var Jimp = require('jimp');
+var jimp = require('jimp');
 
 /***************************************************
  * Helper Functions
@@ -68,25 +68,21 @@ function sum(o) {
 }
 function leftSort(a, b) {return parseInt(a, 10) - parseInt(b, 10);}
 function rightSort(a, b) {return parseInt(b, 10) - parseInt(a, 10);}
-// eslint-disable-next-line no-unused-vars
 function blueSort(a, b) {
   const aa = a >> 24 & 0xFF;
   const bb = b & 0xFF;
   return aa - bb;
 }
-// eslint-disable-next-line no-unused-vars
 function redSort(a, b) {
   const ar = a >> 16 & 0xFF;
   const br = b >> 16 & 0xFF;
   return ar - br;
 }
-// eslint-disable-next-line no-unused-vars
 function greenSort(a, b) {
   const ag = a >> 8 & 0xFF;
   const bg = b >> 8 & 0xFF;
   return ag - bg;
 }
-// eslint-disable-next-line no-unused-vars
 function hueSort(a, b) {
   const aa = a >> 24 & 0xFF,
     ar = a >> 16 & 0xFF,
@@ -119,7 +115,7 @@ function isNodePattern(cb) {
  */
 
 
-Jimp.prototype.pixelFunk = function pixelFunk(pixelation, cb) {
+jimp.Jimp.prototype.pixelFunk = function pixelFunk(pixelation, cb) {
   if (!nullOrUndefined(pixelation)) {
     if ("number" !== typeof pixelation)
       return throwError.call(this, "pixelation must be a number", cb);
@@ -154,7 +150,7 @@ Jimp.prototype.pixelFunk = function pixelFunk(pixelation, cb) {
  * Super Pixel Funk
  * @param {number} pixelation - size of pixels to use for pixelization
  */
-Jimp.prototype.superPixelFunk = function superPixelFunk(pixelation, cb) {
+jimp.Jimp.prototype.superPixelFunk = function superPixelFunk(pixelation, cb) {
   if (!nullOrUndefined(pixelation)) {
     if ("number" !== typeof pixelation)
       return throwError.call(this, "pixelation must be a number", cb);
@@ -193,7 +189,7 @@ Jimp.prototype.superPixelFunk = function superPixelFunk(pixelation, cb) {
  * @param {integer} start - pixel to start at
  * @param {integer} end - pixel to end at
  */
-Jimp.prototype.shortsort = function shortsort(dir, start, end, cb) {
+jimp.Jimp.prototype.shortsort = function shortsort(dir, start, end, cb) {
   let width = this.bitmap.width,
     height = this.bitmap.height,
     data = new Uint32Array(this.bitmap.data),
@@ -216,7 +212,7 @@ Jimp.prototype.shortsort = function shortsort(dir, start, end, cb) {
     Array.prototype.sort.call(cut, rightSort);
   }
 
-  this.bitmap.data = new Buffer(data.buffer);
+  this.bitmap.data = Buffer.from(data.buffer);
   if (isNodePattern(cb)) return cb.call(this, null, this);
   else return this;
 };
@@ -226,7 +222,7 @@ Jimp.prototype.shortsort = function shortsort(dir, start, end, cb) {
  * @param {integer} start - pixel to start at
  * @param {integer} end - pixel to end at
  */
-Jimp.prototype.shortdumbsort = function shortdumbsort(start, end, cb) {
+jimp.Jimp.prototype.shortdumbsort = function shortdumbsort(start, end, cb) {
   const width = this.bitmap.width,
     height = this.bitmap.height,
     data = new Uint32Array(this.bitmap.data.buffer);
@@ -247,7 +243,7 @@ Jimp.prototype.shortdumbsort = function shortdumbsort(start, end, cb) {
     Array.prototype.sort.call(da);
     debug("data length:", data.length, "offset", mm[0], "size", mm[0] + da.length);
     data.set(da, mm[0]);
-    this.bitmap.data = new Buffer(data);
+    this.bitmap.data = Buffer.from(data);
   } catch (err) {
     console.error(err);
   }
@@ -259,7 +255,7 @@ Jimp.prototype.shortdumbsort = function shortdumbsort(start, end, cb) {
  * sort
  * @param {boolean} direction - T/F for Left or Right
  */
-Jimp.prototype.sort = function sort(dir, cb) {
+jimp.Jimp.prototype.sort = function sort(dir, cb) {
   const data = new Uint32Array(this.bitmap.data);
   dir = nullOrUndefined(dir)? coinToss() : dir;
 
@@ -269,7 +265,7 @@ Jimp.prototype.sort = function sort(dir, cb) {
     Array.prototype.sort.call(data, rightSort);
   }
 
-  this.bitmap.data = new Buffer(data);
+  this.bitmap.data = Buffer.from(data);
   if (isNodePattern(cb)) return cb.call(this, null, this);
   else return this;
 };
@@ -280,7 +276,7 @@ Jimp.prototype.sort = function sort(dir, cb) {
  * @param {integer} start - pixel to start at
  * @param {integer} end - pixel to end at
  */
-Jimp.prototype.slicesort = function slicesort(dir, start, end, cb) {
+jimp.Jimp.prototype.slicesort = function slicesort(dir, start, end, cb) {
   let width = this.bitmap.width,
     height = this.bitmap.height,
     mm,
@@ -307,7 +303,7 @@ Jimp.prototype.slicesort = function slicesort(dir, start, end, cb) {
   }
   data.set(data.buffer, coinToss() ? offset : mm[0]);
 
-  this.bitmap.data = new Buffer(data);
+  this.bitmap.data = Buffer.from(data);
   if (isNodePattern(cb)) return cb.call(this, null, this);
   else return this;
 };
@@ -318,7 +314,7 @@ Jimp.prototype.slicesort = function slicesort(dir, start, end, cb) {
  * @param {integer} start - pixel to start at
  * @param {integer} end - pixel to end at
  */
-Jimp.prototype.sortStripe = function sortStripe(dir, start, end, cb) {
+jimp.Jimp.prototype.sortStripe = function sortStripe(dir, start, end, cb) {
   let width = this.bitmap.width,
     height = this.bitmap.height,
     data = new Uint32Array(this.bitmap.data),
@@ -341,7 +337,7 @@ Jimp.prototype.sortStripe = function sortStripe(dir, start, end, cb) {
     da.copyWithin(data, i + mm[0]);
   }
 
-  this.bitmap.data = new Buffer(data);
+  this.bitmap.data = Buffer.from(data);
   if (isNodePattern(cb)) return cb.call(this, null, this);
   else return this;
 };
@@ -349,7 +345,7 @@ Jimp.prototype.sortStripe = function sortStripe(dir, start, end, cb) {
 /**
  * sortRows
  */
-Jimp.prototype.sortRows = function sortRows(cb) {
+jimp.Jimp.prototype.sortRows = function sortRows(cb) {
   const width = this.bitmap.width,
     data = new Uint32Array(this.bitmap.data);
 
@@ -359,7 +355,7 @@ Jimp.prototype.sortRows = function sortRows(cb) {
     da.copyWithin(data, i);
   }
 
-  this.bitmap.data = new Buffer(data);
+  this.bitmap.data = Buffer.from(data);
   if (isNodePattern(cb)) return cb.call(this, null, this);
   else return this;
 };
@@ -367,7 +363,7 @@ Jimp.prototype.sortRows = function sortRows(cb) {
 /**
  * randomSortRows
  */
-Jimp.prototype.randomSortRows = function randomSortRows(cb) {
+jimp.Jimp.prototype.randomSortRows = function randomSortRows(cb) {
   const width = this.bitmap.width,
     data = new Uint32Array(this.bitmap.data);
   for (let i = 0, size = data.length; i < size; i += width) {
@@ -375,7 +371,7 @@ Jimp.prototype.randomSortRows = function randomSortRows(cb) {
     Array.prototype.sort.call(da, coinToss);
     data.set(da, i);
   }
-  this.bitmap.data = new Buffer(data);
+  this.bitmap.data = Buffer.from(data);
   if (isNodePattern(cb)) return cb.call(this, null, this);
   else return this;
 };
@@ -383,7 +379,7 @@ Jimp.prototype.randomSortRows = function randomSortRows(cb) {
 /**
  * dumbSortRows
  */
-Jimp.prototype.dumbSortRows = function dumbsSortRows(cb) {
+jimp.Jimp.prototype.dumbSortRows = function dumbsSortRows(cb) {
   const width = this.bitmap.width;
     this.bitmap.height;
     const data = new Uint32Array(this.bitmap.data);
@@ -394,7 +390,7 @@ Jimp.prototype.dumbSortRows = function dumbsSortRows(cb) {
     data.set(da, i);
   }
 
-  this.bitmap.data = new Buffer(data);
+  this.bitmap.data = Buffer.from(data);
   if (isNodePattern(cb)) return cb.call(this, null, this);
   else return this;
 };
@@ -402,7 +398,7 @@ Jimp.prototype.dumbSortRows = function dumbsSortRows(cb) {
 /**
  * pixelSort
  */
-Jimp.prototype.pixelSort = function pixelSort(cb) {
+jimp.Jimp.prototype.pixelSort = function pixelSort(cb) {
   const width = this.bitmap.width,
     height = this.bitmap.height,
     data = new Uint32Array(this.bitmap.data);
@@ -424,7 +420,7 @@ Jimp.prototype.pixelSort = function pixelSort(cb) {
     }
   }
 
-  this.bitmap.data = new Buffer(data);
+  this.bitmap.data = Buffer.from(data);
   if (isNodePattern(cb)) return cb.call(this, null, this);
   else return this;
 };
@@ -432,13 +428,13 @@ Jimp.prototype.pixelSort = function pixelSort(cb) {
 /**
  * randomGlitch - randomly choose glitch functions to perform on the incoming image
  */
-Jimp.prototype.randomGlitch = function (cb) {
+jimp.Jimp.prototype.randomGlitch = function (cb) {
   const history = [];
   // enumerate glitch functions
   const glitches = [];
-  for (const prop in Jimp.prototype) {
-    if (typeof Jimp.prototype[prop] === "function" &&
-				Jimp.prototype[prop].name){
+  for (const prop in jimp.Jimp.prototype) {
+    if (typeof jimp.Jimp.prototype[prop] === "function" &&
+				jimp.Jimp.prototype[prop].name){
       glitches.push(this[prop].name);
     }
   }
@@ -458,7 +454,7 @@ Jimp.prototype.randomGlitch = function (cb) {
 /**
  * Glitch - randomly choose glitch functions to perform on the incoming image
  */
-Jimp.prototype.glitch = function (cb) {
+jimp.Jimp.prototype.glitch = function (cb) {
   for (let i = 0, l = randRange(5, 10); i < l; i++) {
     switch (randFloor(13)) {
     case 0:
@@ -516,7 +512,7 @@ Jimp.prototype.glitch = function (cb) {
  * Preset - sequentially run ___ with random parameters
  * number - which preset to run (1-4) (default to 5 random glitches)
  */
-Jimp.prototype.preset = function (number, cb) {
+jimp.Jimp.prototype.preset = function (number, cb) {
   let ops = [];
   switch(number) {
   case 1:
@@ -547,7 +543,7 @@ Jimp.prototype.preset = function (number, cb) {
  * Focus Image
  * @param {number} pixelation - size of pixels to use for pixelization
  */
-Jimp.prototype.focusImage = function focusImage(pixelation, cb) {
+jimp.Jimp.prototype.focusImage = function focusImage(pixelation, cb) {
   if (!nullOrUndefined(pixelation)) {
     if ("number" !== typeof pixelation)
       return throwError.call(this, "pixelation must be a number", cb);
@@ -582,7 +578,7 @@ Jimp.prototype.focusImage = function focusImage(pixelation, cb) {
  * @param {number} rgb - number representing R (0), G (1), or B (2)
  * @param {boolean} direction - shift pixels left or right, truthy for left, falsey for right
  */
-Jimp.prototype.rgb_glitch = function rgb_glitch(offset, rgb, dir, cb) {
+jimp.Jimp.prototype.rgb_glitch = function rgb_glitch(offset, rgb, dir, cb) {
   const width = this.bitmap.width,
     height = this.bitmap.height,
     data = this.bitmap.data;
@@ -626,7 +622,7 @@ Jimp.prototype.rgb_glitch = function rgb_glitch(offset, rgb, dir, cb) {
       }
     }
   }
-  this.bitmap.data = new Buffer(data);
+  this.bitmap.data = Buffer.from(data);
   if (isNodePattern(cb)) return cb.call(this, null, this);
   else return this;
 };
@@ -634,14 +630,14 @@ Jimp.prototype.rgb_glitch = function rgb_glitch(offset, rgb, dir, cb) {
 /**
  * inverse
  */
-Jimp.prototype.inverse = function inverse(cb) {
+jimp.Jimp.prototype.inverse = function inverse(cb) {
   this.bitmap.width;
     this.bitmap.height;
     const data = new Uint32Array(this.bitmap.data);
   for (let i = 0; i < data.length; i++) {
     data[i] = ~ data[i] | 0xFF000000;
   }
-  this.bitmap.data = new Buffer(data);
+  this.bitmap.data = Buffer.from(data);
   if (isNodePattern(cb)) return cb.call(this, null, this);
   else return this;
 };
@@ -651,7 +647,7 @@ Jimp.prototype.inverse = function inverse(cb) {
  * @param {number} cutstart - datapoint to begin cut
  * @param {number} cutend - datapoint to finalize cut
  */
-Jimp.prototype.slice = function slice(cutstart, cutend, cb) {
+jimp.Jimp.prototype.slice = function slice(cutstart, cutend, cb) {
   if (!nullOrUndefined(cutstart)) {
     if ("number" !== typeof cutstart)
       return throwError.call(this, "cutstart must be a number", cb);
@@ -672,7 +668,7 @@ Jimp.prototype.slice = function slice(cutstart, cutend, cb) {
   const cut = data.subarray(cutstart, cutend);
   debug("slice::\ncut: %s, start: %s, end: %s", cut.length, cutstart, cutend);
   data.set(cut, randFloor((width * height * 4) - cut.length) || 0);
-  this.bitmap.data = new Buffer(data);
+  this.bitmap.data = Buffer.from(data);
   if (isNodePattern(cb)) return cb.call(this, null, this);
   else return this;
 };
@@ -683,7 +679,7 @@ Jimp.prototype.slice = function slice(cutstart, cutend, cb) {
  * @param {number} size - size between scanlines, numbers between 3 and 15 look nice
  * @param {number} option - 0, 1, 2, or 3, to determine which value to use with Or or Xor
  */
-Jimp.prototype.scanlines = function scanlines(type, size, option, cb) {
+jimp.Jimp.prototype.scanlines = function scanlines(type, size, option, cb) {
   const width = this.bitmap.width;
     this.bitmap.height;
     const data = new Uint32Array(this.bitmap.data),
@@ -709,7 +705,7 @@ Jimp.prototype.scanlines = function scanlines(type, size, option, cb) {
     data.set(row, i);
   }
 
-  this.bitmap.data = new Buffer(data);
+  this.bitmap.data = Buffer.from(data);
   if (isNodePattern(cb)) return cb.call(this, null, this);
   else return this;
 };
@@ -719,7 +715,7 @@ Jimp.prototype.scanlines = function scanlines(type, size, option, cb) {
  * @param {number} type - A number from 0-3 determining which algorithm to use
  * @param {number} color - The color channel to use to create the ghosts
  */
-Jimp.prototype.fractalGhosts = function fractalGhosts(type, color, cb) {
+jimp.Jimp.prototype.fractalGhosts = function fractalGhosts(type, color, cb) {
   if(!nullOrUndefined(type)) {
     if (typeof type !== "number")
       return throwError.call(this, "type must be a number", cb);
@@ -779,7 +775,7 @@ Jimp.prototype.fractalGhosts = function fractalGhosts(type, color, cb) {
     }
     break;
   }
-  this.bitmap.data = new Buffer(data);
+  this.bitmap.data = Buffer.from(data);
   if (isNodePattern(cb)) return cb.call(this, null, this);
   else return this;
 };
@@ -788,7 +784,7 @@ Jimp.prototype.fractalGhosts = function fractalGhosts(type, color, cb) {
  * Fractal
  * @param {number} type - A number from (currently 0 or 1) determining which algorithm to use
  */
-Jimp.prototype.fractal = function fractal(type, cb) {
+jimp.Jimp.prototype.fractal = function fractal(type, cb) {
   if(!nullOrUndefined(type)) {
     if (typeof type !== "number")
       return throwError.call(this, "type must be a number", cb);
@@ -816,7 +812,7 @@ Jimp.prototype.fractal = function fractal(type, cb) {
     }
     break;
   }
-  this.bitmap.data = new Buffer(data);
+  this.bitmap.data = Buffer.from(data);
   if (isNodePattern(cb)) return cb.call(this, null, this);
   else return this;
 };
@@ -824,7 +820,7 @@ Jimp.prototype.fractal = function fractal(type, cb) {
 /**
  * drumrollHorizontal
  */
-Jimp.prototype.drumrollHorizontal = function drumrollHorizontal(cb) {
+jimp.Jimp.prototype.drumrollHorizontal = function drumrollHorizontal(cb) {
   let width = this.bitmap.width,
     height = this.bitmap.height,
     data = this.bitmap.data,
@@ -846,7 +842,7 @@ Jimp.prototype.drumrollHorizontal = function drumrollHorizontal(cb) {
     }
   }
 
-  this.bitmap.data = new Buffer(data);
+  this.bitmap.data = Buffer.from(data);
   if (isNodePattern(cb)) return cb.call(this, null, this);
   else return this;
 };
@@ -854,7 +850,7 @@ Jimp.prototype.drumrollHorizontal = function drumrollHorizontal(cb) {
 /**
  * drumrollVertical
  */
-Jimp.prototype.drumrollVertical = function drumrollVertical(cb) {
+jimp.Jimp.prototype.drumrollVertical = function drumrollVertical(cb) {
   // borrowed from https://github.com/ninoseki/glitched-canvas
   let width = this.bitmap.width,
     height = this.bitmap.height,
@@ -877,12 +873,12 @@ Jimp.prototype.drumrollVertical = function drumrollVertical(cb) {
     }
   }
 
-  this.bitmap.data = new Buffer(data);
+  this.bitmap.data = Buffer.from(data);
   if (isNodePattern(cb)) return cb.call(this, null, this);
   else return this;
 };
 
-Jimp.prototype.drumrollHorizontalWave = function drumrollHorizontalWave(cb) {
+jimp.Jimp.prototype.drumrollHorizontalWave = function drumrollHorizontalWave(cb) {
   // borrowed from https://github.com/ninoseki/glitched-canvas & modified with cosine
   let width = this.bitmap.width,
     height = this.bitmap.height,
@@ -905,7 +901,7 @@ Jimp.prototype.drumrollHorizontalWave = function drumrollHorizontalWave(cb) {
     }
   }
 
-  this.bitmap.data = new Buffer(data);
+  this.bitmap.data = Buffer.from(data);
   if (isNodePattern(cb)) return cb.call(this, null, this);
   else return this;
 };
@@ -913,7 +909,7 @@ Jimp.prototype.drumrollHorizontalWave = function drumrollHorizontalWave(cb) {
 /**
  * drumrollVerticalWave
  */
-Jimp.prototype.drumrollVerticalWave = function drumrollVerticalWave(cb) {
+jimp.Jimp.prototype.drumrollVerticalWave = function drumrollVerticalWave(cb) {
   // borrowed from https://github.com/ninoseki/glitched-canvas & modified w/ cosine
   let width = this.bitmap.width,
     height = this.bitmap.height,
@@ -937,7 +933,7 @@ Jimp.prototype.drumrollVerticalWave = function drumrollVerticalWave(cb) {
     }
   }
 
-  this.bitmap.data = new Buffer(data);
+  this.bitmap.data = Buffer.from(data);
   if (isNodePattern(cb)) return cb.call(this, null, this);
   else return this;
 };
@@ -946,7 +942,7 @@ Jimp.prototype.drumrollVerticalWave = function drumrollVerticalWave(cb) {
  * Dither: Bitmask
  * @param {number} mask - number with which to mask each color channel 1-254
  */
-Jimp.prototype.ditherBitmask = function ditherBitmask(mask, cb) {
+jimp.Jimp.prototype.ditherBitmask = function ditherBitmask(mask, cb) {
   if (!nullOrUndefined(mask)) {
     if ("number" !== typeof mask)
       return throwError.call(this, "mask must be a number", cb);
@@ -966,14 +962,14 @@ Jimp.prototype.ditherBitmask = function ditherBitmask(mask, cb) {
     data[i + 2] |= M;
   }
 
-  this.bitmap.data = new Buffer(data);
+  this.bitmap.data = Buffer.from(data);
   if (isNodePattern(cb)) return cb.call(this, null, this);
   else return this;
 };
 
 // todo: rewrite colorShift functions to match Jimp.prototype.sepia
 
-Jimp.prototype.colorShift = function colorShift(dir, cb) {
+jimp.Jimp.prototype.colorShift = function colorShift(dir, cb) {
   const width = this.bitmap.width,
     height = this.bitmap.height,
     data = this.bitmap.data;
@@ -989,7 +985,7 @@ Jimp.prototype.colorShift = function colorShift(dir, cb) {
     data[i + 1] = dir ? b : r;
     data[i + 2] = dir ? r : g;
   }
-  this.bitmap.data = new Buffer(data);
+  this.bitmap.data = Buffer.from(data);
   if (isNodePattern(cb)) return cb.call(this, null, this);
   else return this;
 };
@@ -997,7 +993,7 @@ Jimp.prototype.colorShift = function colorShift(dir, cb) {
 /**
  * Dither: Random - dither according to noise
  */
-Jimp.prototype.ditherRandom = function ditherRandom(cb) {
+jimp.Jimp.prototype.ditherRandom = function ditherRandom(cb) {
   const width = this.bitmap.width,
     height = this.bitmap.height,
     data = this.bitmap.data;
@@ -1006,7 +1002,7 @@ Jimp.prototype.ditherRandom = function ditherRandom(cb) {
     val = scaled < randRound(128) ? 0 : 0xff;
     data[i] = data[i + 1] = data[i + 2] = val;
   }
-  this.bitmap.data = new Buffer(data);
+  this.bitmap.data = Buffer.from(data);
   if (isNodePattern(cb)) return cb.call(this, null, this);
   else return this;
 
@@ -1017,7 +1013,7 @@ Jimp.prototype.ditherRandom = function ditherRandom(cb) {
  * @param {number} map - which matrix to use for the threshold map - 0: 3x3,  1: 4x4, 2: 8x8
  */
 
-Jimp.prototype.ditherBayer = function ditherBayer(map, cb) {
+jimp.Jimp.prototype.ditherBayer = function ditherBayer(map, cb) {
   map = !nullOrUndefined(map) ? map : randFloor(3);
   if ("number" !== typeof map)
     return throwError.call(this, "map must be a number", cb);
@@ -1073,7 +1069,7 @@ Jimp.prototype.ditherBayer = function ditherBayer(map, cb) {
  * Red Shift
  * @param {number} factor - factor by which to reduce green and blue channels and boost red channel
  */
-Jimp.prototype.redShift = function redShift(factor, cb) {
+jimp.Jimp.prototype.redShift = function redShift(factor, cb) {
   if (!nullOrUndefined(factor)) {
     if ("number" !== typeof factor)
       return throwError.call(this, "factor must be a number", cb);
@@ -1090,12 +1086,12 @@ Jimp.prototype.redShift = function redShift(factor, cb) {
     data[i + 1] -= factor;
     data[i + 2] -= factor;
   }
-  this.bitmap.data = new Buffer(data);
+  this.bitmap.data = Buffer.from(data);
   if (isNodePattern(cb)) return cb.call(this, null, this);
   else return this;
 };
 
-Jimp.prototype.greenShift = function greenShift(factor, cb) {
+jimp.Jimp.prototype.greenShift = function greenShift(factor, cb) {
   if (!nullOrUndefined(factor)) {
     if ("number" !== typeof factor)
       return throwError.call(this, "factor must be a number", cb);
@@ -1112,7 +1108,7 @@ Jimp.prototype.greenShift = function greenShift(factor, cb) {
     data[i + 1] = (shift) > 255 ? 255 : shift;
     data[i + 2] -= factor;
   }
-  this.bitmap.data = new Buffer(data);
+  this.bitmap.data = Buffer.from(data);
   if (isNodePattern(cb)) return cb.call(this, null, this);
   else return this;
 };
@@ -1121,7 +1117,7 @@ Jimp.prototype.greenShift = function greenShift(factor, cb) {
  * Blue Shift
  * @param {number} factor - factor by which to reduce red and green channels and boost blue channel
  */
-Jimp.prototype.blueShift = function blueShift(factor, cb) {
+jimp.Jimp.prototype.blueShift = function blueShift(factor, cb) {
   if (!nullOrUndefined(factor)) {
     if ("number" !== typeof factor)
       return throwError.call(this, "factor must be a number", cb);
@@ -1138,7 +1134,7 @@ Jimp.prototype.blueShift = function blueShift(factor, cb) {
     data[i + 1] -= factor;
     data[i + 2] = (shift) > 255 ? 255 : shift;
   }
-  this.bitmap.data = new Buffer(data);
+  this.bitmap.data = Buffer.from(data);
   if (isNodePattern(cb)) return cb.call(this, null, this);
   else return this;
 };
@@ -1148,7 +1144,7 @@ Jimp.prototype.blueShift = function blueShift(factor, cb) {
  * @param {number} iter - number of times to shift color values
  * @param {boolean} dir - direction to shift colors, true for RGB->GBR, false for RGB->BRG.
  */
-Jimp.prototype.superShift = function superShift(iter, dir, cb) {
+jimp.Jimp.prototype.superShift = function superShift(iter, dir, cb) {
   if (!nullOrUndefined(iter)) {
     if ("number" !== typeof iter)
       return throwError.call(this, "iter must be a number", cb);
@@ -1172,7 +1168,7 @@ Jimp.prototype.superShift = function superShift(iter, dir, cb) {
       data[j + 2] = dir ? r : g;
     }
   }
-  this.bitmap.data = new Buffer(data);
+  this.bitmap.data = Buffer.from(data);
   if (isNodePattern(cb)) return cb.call(this, null, this);
   else return this;
 };
@@ -1181,7 +1177,7 @@ Jimp.prototype.superShift = function superShift(iter, dir, cb) {
  * Super Slice
  * @param {number} iter - Number of times to perform an automatic slice
  */
-Jimp.prototype.superSlice = function superSlice(iter, cb) {
+jimp.Jimp.prototype.superSlice = function superSlice(iter, cb) {
   if (!nullOrUndefined(iter)) {
     if ("number" !== typeof iter)
       return throwError.call(this, "iter must be a number", cb);
@@ -1207,7 +1203,7 @@ Jimp.prototype.superSlice = function superSlice(iter, cb) {
     const cut = data.subarray(cutstart, cutend);
     data.set(cut, randFloor((width * height * 4) - cut.length));
   }
-  this.bitmap.data = new Buffer(data);
+  this.bitmap.data = Buffer.from(data);
   if (isNodePattern(cb)) return cb.call(this, null, this);
   else return this;
 };
@@ -1215,7 +1211,7 @@ Jimp.prototype.superSlice = function superSlice(iter, cb) {
 /**
  * Dither: Atkinsons
  */
-Jimp.prototype.ditherAtkinsons = function ditherAtkinsons(cb) {
+jimp.Jimp.prototype.ditherAtkinsons = function ditherAtkinsons(cb) {
   const width = this.bitmap.width,
     height = this.bitmap.height,
     data = this.bitmap.data;
@@ -1271,7 +1267,7 @@ Jimp.prototype.ditherAtkinsons = function ditherAtkinsons(cb) {
       }
     }
   }
-  this.bitmap.data = new Buffer(data);
+  this.bitmap.data = Buffer.from(data);
   if (isNodePattern(cb)) return cb.call(this, null, this);
   else return this;
 };
@@ -1279,7 +1275,7 @@ Jimp.prototype.ditherAtkinsons = function ditherAtkinsons(cb) {
 /**
  * Dither: Floyd-Steinberg
  */
-Jimp.prototype.ditherFloydSteinberg = function ditherFloydSteinberg(cb) {
+jimp.Jimp.prototype.ditherFloydSteinberg = function ditherFloydSteinberg(cb) {
   const width = this.bitmap.width,
     height = this.bitmap.height,
     data = this.bitmap.data;
@@ -1326,7 +1322,7 @@ Jimp.prototype.ditherFloydSteinberg = function ditherFloydSteinberg(cb) {
       }
     }
   }
-  this.bitmap.data = new Buffer(data);
+  this.bitmap.data = Buffer.from(data);
   if (isNodePattern(cb)) return cb.call(this, null, this);
   else return this;
 };
@@ -1334,7 +1330,7 @@ Jimp.prototype.ditherFloydSteinberg = function ditherFloydSteinberg(cb) {
 /**
  * Dither: Halftone
  */
-Jimp.prototype.ditherHalftone = function ditherHalftone(cb) {
+jimp.Jimp.prototype.ditherHalftone = function ditherHalftone(cb) {
   const width = this.bitmap.width,
     height = this.bitmap.height,
     data = this.bitmap.data;
@@ -1405,7 +1401,7 @@ Jimp.prototype.ditherHalftone = function ditherHalftone(cb) {
     }
   }
 
-  this.bitmap.data = new Buffer(data);
+  this.bitmap.data = Buffer.from(data);
   if (isNodePattern(cb)) return cb.call(this, null, this);
   else return this;
 };
@@ -1414,7 +1410,7 @@ Jimp.prototype.ditherHalftone = function ditherHalftone(cb) {
  * Dither: 8 bits
  * @param {number} size - a number greater than 1 representing pixel size.
  */
-Jimp.prototype.dither8Bit = function dither8Bit(size, cb) {
+jimp.Jimp.prototype.dither8Bit = function dither8Bit(size, cb) {
   size = nullOrUndefined(size) ? randRange(4, 15) : size;
   if (typeof size !== "number") {
     return throwError.call(this, "size must be a number " + size, cb);
@@ -1455,24 +1451,48 @@ Jimp.prototype.dither8Bit = function dither8Bit(size, cb) {
       }
     }
   }
-  this.bitmap.data = new Buffer(data);
+  this.bitmap.data = Buffer.from(data);
   if (isNodePattern(cb)) return cb.call(this, null, this);
   else return this;
 };
 
 /**
  * Gleech.js
- * Copyright (C) 2017 jkirchartz <me@jkirchartz.com>
+ * Copyright (C) 2025 jkirchartz <me@jkirchartz.com>
  *
  * Extend JIMP with glitches
  *
  * Distributed under terms of the GPL 3.0 (General Public License) license.
  */
 
-exports.default = Jimp;
+
+// Glitch function categories for UI selection
+const glitchCategories = {
+  exp: [
+    'pixelFunk', 'superPixelFunk', 'shortsort', 'shortdumbsort',
+    'sort', 'slicesort', 'sortStripe', 'sortRows', 'randomSortRows', 'dumbSortRows',
+    'pixelSort', 'randomGlitch', 'glitch', 'preset1', 'preset2', 'preset3', 'preset4'
+  ],
+  orig: [
+    'focusImage', 'rgb_glitch', 'invert', 'slice', 'scanlines',
+    'fractalGhosts', 'fractal',
+    'drumrollHorizontal', 'drumrollVertical', 'drumrollHorizontalWave',
+    'drumrollVerticalWave', 'ditherBitmask', 'colorShift',
+    'ditherRandom', 'ditherRandom3', 'ditherBayer', 'ditherBayer3', 'redShift',
+    'greenShift', 'blueShift', 'superShift', 'superSlice',
+    'ditherAtkinsons', 'ditherFloydSteinberg', 'ditherHalftone', 'dither8bit'
+  ]
+};
+
+Object.defineProperty(exports, "default", {
+  enumerable: true,
+  get: function () { return jimp.Jimp; }
+});
 exports.adjustPixelError = adjustPixelError;
 exports.blueSort = blueSort;
 exports.coinToss = coinToss;
+exports.debug = debug;
+exports.glitchCategories = glitchCategories;
 exports.greenSort = greenSort;
 exports.hueSort = hueSort;
 exports.isNodePattern = isNodePattern;

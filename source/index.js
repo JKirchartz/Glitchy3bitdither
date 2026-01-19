@@ -70,9 +70,28 @@ export {
   redSort,
   hueSort,
   randSort,
-  isNodePattern
+  isNodePattern,
+  debug
 } from "./helpers.js";
 
+// Glitch function categories for UI selection
+export const glitchCategories = {
+  exp: [
+    'pixelFunk', 'superPixelFunk', 'shortsort', 'shortdumbsort',
+    'sort', 'slicesort', 'sortStripe', 'sortRows', 'randomSortRows', 'dumbSortRows',
+    'pixelSort', 'randomGlitch', 'glitch', 'preset1', 'preset2', 'preset3', 'preset4'
+  ],
+  orig: [
+    'focusImage', 'rgb_glitch', 'invert', 'slice', 'scanlines',
+    'fractalGhosts', 'fractal',
+    'drumrollHorizontal', 'drumrollVertical', 'drumrollHorizontalWave',
+    'drumrollVerticalWave', 'ditherBitmask', 'colorShift',
+    'ditherRandom', 'ditherRandom3', 'ditherBayer', 'ditherBayer3', 'redShift',
+    'greenShift', 'blueShift', 'superShift', 'superSlice',
+    'ditherAtkinsons', 'ditherFloydSteinberg', 'ditherHalftone', 'dither8bit'
+  ]
+};
+
 // For backwards compatibility with JIMP
-import Jimp from "jimp";
+import { Jimp } from "jimp";
 export default Jimp;

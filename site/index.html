@@ -33,7 +33,7 @@ layout: template
                 for(var i = 0;i<functions.length;i++){
                   setTimeout((function(functions, i, ctx, canvas) {
                     ctx.drawImage(img, 0, 0);
-                    console.log(functions[i]);
+                    debug(functions[i]);
                     drawDitherResult(canvas,functions[i],true,true);
                   })(functions, i, ctx, canvas), 0);
                 }

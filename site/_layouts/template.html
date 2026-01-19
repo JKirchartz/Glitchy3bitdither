@@ -4,7 +4,35 @@
     <meta charset="UTF-8">
     <title>Glitchy3bitDither</title>
     <link media="all" rel="stylesheet" href="style.css" type="text/css" />
-    <script src="GlitchyDither.js" type="text/javascript"></script>
+    <script>
+      window.DEBUG = false;
+      function debug() {
+        if (window.DEBUG) {
+          console.log.apply(console, arguments);
+        }
+      }
+    </script>
+    <script src="gleech.umd.js" type="text/javascript"></script>
+    <script>
+      // Attach glitch function categories for backwards compatibility
+      if (window.Gleech) {
+        window.gleech = window.Gleech;
+        window.gleech.exp = [
+          'pixelFunk', 'superPixelFunk', 'shortsort', 'shortdumbsort',
+          'sort', 'slicesort', 'sortStripe', 'sortRows', 'randomSortRows', 'dumbSortRows',
+          'pixelSort', 'randomGlitch', 'glitch', 'preset1', 'preset2', 'preset3', 'preset4'
+        ];
+        window.gleech.orig = [
+          'focusImage', 'rgb_glitch', 'invert', 'slice', 'scanlines',
+          'fractalGhosts', 'fractal',
+          'drumrollHorizontal', 'drumrollVertical', 'drumrollHorizontalWave',
+          'drumrollVerticalWave', 'ditherBitmask', 'colorShift',
+          'ditherRandom', 'ditherRandom3', 'ditherBayer', 'ditherBayer3', 'redShift',
+          'greenShift', 'blueShift', 'superShift', 'superSlice',
+          'ditherAtkinsons', 'ditherFloydSteinberg', 'ditherHalftone', 'dither8bit'
+        ];
+      }
+    </script>
   </head>
   <body>
     <header>
@@ -41,7 +69,7 @@ function drawDitherResult(canvas, ditherer, text, append) {
   var ctx = canvas.getContext('2d');
   var imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
   var output = document.getElementById('output');
-  console.log(ditherer);
+  debug(ditherer);
   ctx.putImageData(gleech[ditherer](imageData), 0, 0);
   var img = document.createElement('img');
   img.src = canvas.toDataURL('image/png');
@@ -77,7 +105,7 @@ window.onload = function(){
   close_btn.onclick = modal;
   /* keypress to kill modal */
   info.onclick = function(e){
-    console.log(e);
+    debug(e);
     if(e.target.id == "info" && e.target.nodeName == "DIV"){
       info.classList.remove('on');
     }

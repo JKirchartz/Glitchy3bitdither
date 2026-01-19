@@ -1,7 +1,7 @@
 /**
  * theworks - run every glitch function on the incoming image
  */
-import Jimp from "jimp";
+import { Jimp } from "jimp";
 import { isNodePattern } from "../helpers.js";
 Jimp.prototype.theworks = function (cb) {
   for (const prop in this) {

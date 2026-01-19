@@ -1,7 +1,7 @@
 /**
  * Dither: Floyd-Steinberg
  */
-import Jimp from "jimp";
+import { Jimp } from "jimp";
 import { adjustPixelError,isNodePattern } from "../helpers.js";
 Jimp.prototype.ditherFloydSteinberg = function ditherFloydSteinberg(cb) {
   const width = this.bitmap.width,
@@ -50,7 +50,7 @@ Jimp.prototype.ditherFloydSteinberg = function ditherFloydSteinberg(cb) {
       }
     }
   }
-  this.bitmap.data = new Buffer(data);
+  this.bitmap.data = Buffer.from(data);
   if (isNodePattern(cb)) return cb.call(this, null, this);
   else return this;
 };

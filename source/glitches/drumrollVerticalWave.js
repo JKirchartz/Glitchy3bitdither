@@ -1,7 +1,7 @@
 /**
  * drumrollVerticalWave
  */
-import Jimp from "jimp";
+import { Jimp } from "jimp";
 import { isNodePattern } from "../helpers.js";
 Jimp.prototype.drumrollVerticalWave = function drumrollVerticalWave(cb) {
   // borrowed from https://github.com/ninoseki/glitched-canvas & modified w/ cosine
@@ -27,7 +27,7 @@ Jimp.prototype.drumrollVerticalWave = function drumrollVerticalWave(cb) {
     }
   }
 
-  this.bitmap.data = new Buffer(data);
+  this.bitmap.data = Buffer.from(data);
   if (isNodePattern(cb)) return cb.call(this, null, this);
   else return this;
 };

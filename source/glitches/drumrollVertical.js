@@ -1,7 +1,7 @@
 /**
  * drumrollVertical
  */
-import Jimp from "jimp";
+import { Jimp } from "jimp";
 import { randFloor,isNodePattern } from "../helpers.js";
 Jimp.prototype.drumrollVertical = function drumrollVertical(cb) {
   // borrowed from https://github.com/ninoseki/glitched-canvas
@@ -26,7 +26,7 @@ Jimp.prototype.drumrollVertical = function drumrollVertical(cb) {
     }
   }
 
-  this.bitmap.data = new Buffer(data);
+  this.bitmap.data = Buffer.from(data);
   if (isNodePattern(cb)) return cb.call(this, null, this);
   else return this;
 };

@@ -3,7 +3,7 @@
  * @param {number} cutstart - datapoint to begin cut
  * @param {number} cutend - datapoint to finalize cut
  */
-import Jimp from "jimp";
+import { Jimp } from "jimp";
 import { throwError, nullOrUndefined, randFloor, isNodePattern, debug } from "../helpers.js";
 Jimp.prototype.slice = function slice(cutstart, cutend, cb) {
   if (!nullOrUndefined(cutstart)) {
@@ -26,7 +26,7 @@ Jimp.prototype.slice = function slice(cutstart, cutend, cb) {
   const cut = data.subarray(cutstart, cutend);
   debug("slice::\ncut: %s, start: %s, end: %s", cut.length, cutstart, cutend);
   data.set(cut, randFloor((width * height * 4) - cut.length) || 0);
-  this.bitmap.data = new Buffer(data);
+  this.bitmap.data = Buffer.from(data);
   if (isNodePattern(cb)) return cb.call(this, null, this);
   else return this;
 };

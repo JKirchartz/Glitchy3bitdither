@@ -68,7 +68,6 @@ export function sum(o) {
 }
 export function leftSort(a, b) {return parseInt(a, 10) - parseInt(b, 10);}
 export function rightSort(a, b) {return parseInt(b, 10) - parseInt(a, 10);}
-// eslint-disable-next-line no-unused-vars
 export function blueSort(a, b) {
   const aa = a >> 24 & 0xFF,
     ar = a >> 16 & 0xFF,
@@ -80,7 +79,6 @@ export function blueSort(a, b) {
     bb = b & 0xFF;
   return aa - bb;
 }
-// eslint-disable-next-line no-unused-vars
 export function redSort(a, b) {
   const aa = a >> 24 & 0xFF,
     ar = a >> 16 & 0xFF,
@@ -92,7 +90,6 @@ export function redSort(a, b) {
     bb = b & 0xFF;
   return ar - br;
 }
-// eslint-disable-next-line no-unused-vars
 export function greenSort(a, b) {
   const aa = a >> 24 & 0xFF,
     ar = a >> 16 & 0xFF,
@@ -104,7 +101,6 @@ export function greenSort(a, b) {
     bb = b & 0xFF;
   return ag - bg;
 }
-// eslint-disable-next-line no-unused-vars
 export function hueSort(a, b) {
   const aa = a >> 24 & 0xFF,
     ar = a >> 16 & 0xFF,

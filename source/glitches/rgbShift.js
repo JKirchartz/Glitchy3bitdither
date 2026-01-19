@@ -4,7 +4,7 @@
  * @param {string} to - channel to shift color value to, 'r', 'g', or 'b'
  * @param {number} factor - factor by which to reduce other channels and boost the channel set by to
  */
-import Jimp from "jimp";
+import { Jimp } from "jimp";
 import { throwError,nullOrUndefined,randFloor,randRange,isNodePattern } from "../helpers.js";
 Jimp.prototype.rgbShift = function rgbShift(from, to, factor, cb) {
   const width = this.bitmap.width,
@@ -86,7 +86,7 @@ Jimp.prototype.rgbShift = function rgbShift(from, to, factor, cb) {
     data[i + to] = (shift) > 255 ? 255 : shift;
   }
   // your code here
-  this.bitmap.data = new Buffer(data);
+  this.bitmap.data = Buffer.from(data);
   if (isNodePattern(cb)) return cb.call(this, null, this);
   else return this;
 };

@@ -2,7 +2,7 @@
  * Preset - sequentially run ___ with random parameters
  * number - which preset to run (1-4) (default to 5 random glitches)
  */
-import Jimp from "jimp";
+import { Jimp } from "jimp";
 import { isNodePattern, debug } from "../helpers.js";
 Jimp.prototype.preset = function (number, cb) {
   let ops = [];

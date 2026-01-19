@@ -14,7 +14,7 @@ var seqCounter = 0;
     var fun = document.getElementById('experimental').checked ?  gleech.orig.concat(gleech.exp) : gleech.orig.slice(0),
       i = seqCounter % fun.length;
     seqCounter++;
-    console.log('seqGlitch', fun[i], seqCounter);
+    debug('seqGlitch', fun[i], seqCounter);
     return gleech[fun[i]](imageData);
   };
 }(gleech || {}));

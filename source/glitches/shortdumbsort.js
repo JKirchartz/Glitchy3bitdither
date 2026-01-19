@@ -3,7 +3,7 @@
  * @param {integer} start - pixel to start at
  * @param {integer} end - pixel to end at
  */
-import Jimp from "jimp";
+import { Jimp } from "jimp";
 import { nullOrUndefined, randRange, randMinMax, randMinMax2, isNodePattern, debug } from "../helpers.js";
 Jimp.prototype.shortdumbsort = function shortdumbsort(start, end, cb) {
   const width = this.bitmap.width,
@@ -26,7 +26,7 @@ Jimp.prototype.shortdumbsort = function shortdumbsort(start, end, cb) {
     Array.prototype.sort.call(da);
     debug("data length:", data.length, "offset", mm[0], "size", mm[0] + da.length);
     data.set(da, mm[0]);
-    this.bitmap.data = new Buffer(data);
+    this.bitmap.data = Buffer.from(data);
   } catch (err) {
     console.error(err);
   }

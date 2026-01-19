@@ -3,7 +3,7 @@
  * @param {number} map - which matrix to use for the threshold map - 0: 3x3,  1: 4x4, 2: 8x8
  */
 
-import Jimp from "jimp";
+import { Jimp } from "jimp";
 import { nullOrUndefined, throwError, randFloor, isNodePattern } from "../helpers.js";
 Jimp.prototype.ditherBayer = function ditherBayer(map, cb) {
   map = !nullOrUndefined(map) ? map : randFloor(3);

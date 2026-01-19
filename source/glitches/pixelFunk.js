@@ -3,7 +3,7 @@
  * @param {number} pixelation - size of pixels to use for pixelization
  */
 
-import Jimp from "jimp";
+import { Jimp } from "jimp";
 import { nullOrUndefined, throwError, randRange, coinToss, isNodePattern } from "../helpers.js";
 
 Jimp.prototype.pixelFunk = function pixelFunk(pixelation, cb) {

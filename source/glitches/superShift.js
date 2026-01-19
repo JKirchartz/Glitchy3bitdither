@@ -3,7 +3,7 @@
  * @param {number} iter - number of times to shift color values
  * @param {boolean} dir - direction to shift colors, true for RGB->GBR, false for RGB->BRG.
  */
-import Jimp from "jimp";
+import { Jimp } from "jimp";
 import { throwError,nullOrUndefined,randRange,coinToss,isNodePattern } from "../helpers.js";
 Jimp.prototype.superShift = function superShift(iter, dir, cb) {
   if (!nullOrUndefined(iter)) {
@@ -29,7 +29,7 @@ Jimp.prototype.superShift = function superShift(iter, dir, cb) {
       data[j + 2] = dir ? r : g;
     }
   }
-  this.bitmap.data = new Buffer(data);
+  this.bitmap.data = Buffer.from(data);
   if (isNodePattern(cb)) return cb.call(this, null, this);
   else return this;
 };

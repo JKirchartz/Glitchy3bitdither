@@ -1,7 +1,7 @@
 /**
  * drumrollHorizontal
  */
-import Jimp from "jimp";
+import { Jimp } from "jimp";
 import { randFloor,isNodePattern } from "../helpers.js";
 Jimp.prototype.drumrollHorizontal = function drumrollHorizontal(cb) {
   let width = this.bitmap.width,
@@ -25,7 +25,7 @@ Jimp.prototype.drumrollHorizontal = function drumrollHorizontal(cb) {
     }
   }
 
-  this.bitmap.data = new Buffer(data);
+  this.bitmap.data = Buffer.from(data);
   if (isNodePattern(cb)) return cb.call(this, null, this);
   else return this;
 };

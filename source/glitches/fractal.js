@@ -2,7 +2,7 @@
  * Fractal
  * @param {number} type - A number from (currently 0 or 1) determining which algorithm to use
  */
-import Jimp from "jimp";
+import { Jimp } from "jimp";
 import { throwError,nullOrUndefined,randRange,isNodePattern } from "../helpers.js";
 Jimp.prototype.fractal = function fractal(type, cb) {
   if(!nullOrUndefined(type)) {
@@ -32,7 +32,7 @@ Jimp.prototype.fractal = function fractal(type, cb) {
     }
     break;
   }
-  this.bitmap.data = new Buffer(data);
+  this.bitmap.data = Buffer.from(data);
   if (isNodePattern(cb)) return cb.call(this, null, this);
   else return this;
 };

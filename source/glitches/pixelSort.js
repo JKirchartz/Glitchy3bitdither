@@ -1,7 +1,7 @@
 /**
  * pixelSort
  */
-import Jimp from "jimp";
+import { Jimp } from "jimp";
 import { leftSort,isNodePattern } from "../helpers.js";
 Jimp.prototype.pixelSort = function pixelSort(cb) {
   const width = this.bitmap.width,
@@ -27,7 +27,7 @@ Jimp.prototype.pixelSort = function pixelSort(cb) {
     }
   }
 
-  this.bitmap.data = new Buffer(data);
+  this.bitmap.data = Buffer.from(data);
   if (isNodePattern(cb)) return cb.call(this, null, this);
   else return this;
 };

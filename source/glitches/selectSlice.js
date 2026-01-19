@@ -2,7 +2,7 @@
  * Select Slice
  * @param {number} selection - Algorithm to use to make an automatic slice (currently 0 or 1)
  */
-import Jimp from "jimp";
+import { Jimp } from "jimp";
 import { throwError,nullOrUndefined,randFloor,randRange,isNodePattern } from "../helpers.js";
 Jimp.prototype.selectSlice = function selectSlice(selection, cb) {
   if (!nullOrUndefined(selection)) {
@@ -29,7 +29,7 @@ Jimp.prototype.selectSlice = function selectSlice(selection, cb) {
   }
   const cut = data.subarray(cutstart, cutend);
   data.set(cut, randFloor((width * height * 4) - cut.length));
-  this.bitmap.data = new Buffer(data);
+  this.bitmap.data = Buffer.from(data);
   if (isNodePattern(cb)) return cb.call(this, null, this);
   else return this;
 };

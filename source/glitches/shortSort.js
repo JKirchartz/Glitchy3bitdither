@@ -3,7 +3,7 @@
  * @param {integer} start - pixel to start at
  * @param {integer} end - pixel to end at
  */
-import Jimp from "jimp";
+import { Jimp } from "jimp";
 import { nullOrUndefined,coinToss,randMinMax,randMinMax2,leftSort,rightSort,isNodePattern } from "../helpers.js";
 Jimp.prototype.shortsort = function shortsort(dir, start, end, cb) {
   let width = this.bitmap.width,
@@ -28,7 +28,7 @@ Jimp.prototype.shortsort = function shortsort(dir, start, end, cb) {
     Array.prototype.sort.call(cut, rightSort);
   }
 
-  this.bitmap.data = new Buffer(data.buffer);
+  this.bitmap.data = Buffer.from(data.buffer);
   if (isNodePattern(cb)) return cb.call(this, null, this);
   else return this;
 };

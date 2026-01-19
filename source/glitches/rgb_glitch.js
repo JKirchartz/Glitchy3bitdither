@@ -4,7 +4,7 @@
  * @param {number} rgb - number representing R (0), G (1), or B (2)
  * @param {boolean} direction - shift pixels left or right, truthy for left, falsey for right
  */
-import Jimp from "jimp";
+import { Jimp } from "jimp";
 import { nullOrUndefined,randRange,coinToss,isNodePattern } from "../helpers.js";
 Jimp.prototype.rgb_glitch = function rgb_glitch(offset, rgb, dir, cb) {
   const width = this.bitmap.width,
@@ -50,7 +50,7 @@ Jimp.prototype.rgb_glitch = function rgb_glitch(offset, rgb, dir, cb) {
       }
     }
   }
-  this.bitmap.data = new Buffer(data);
+  this.bitmap.data = Buffer.from(data);
   if (isNodePattern(cb)) return cb.call(this, null, this);
   else return this;
 };

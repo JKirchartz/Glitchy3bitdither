@@ -1,7 +1,7 @@
 /**
  * Dither: Random - dither according to noise
  */
-import Jimp from "jimp";
+import { Jimp } from "jimp";
 import { randRound,isNodePattern } from "../helpers.js";
 Jimp.prototype.ditherRandom = function ditherRandom(cb) {
   const width = this.bitmap.width,
@@ -12,7 +12,7 @@ Jimp.prototype.ditherRandom = function ditherRandom(cb) {
     val = scaled < randRound(128) ? 0 : 0xff;
     data[i] = data[i + 1] = data[i + 2] = val;
   }
-  this.bitmap.data = new Buffer(data);
+  this.bitmap.data = Buffer.from(data);
   if (isNodePattern(cb)) return cb.call(this, null, this);
   else return this;
 

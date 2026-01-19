@@ -1,7 +1,7 @@
 /**
  * dumbSortRows
  */
-import Jimp from "jimp";
+import { Jimp } from "jimp";
 import { isNodePattern } from "../helpers.js";
 Jimp.prototype.dumbSortRows = function dumbsSortRows(cb) {
   const width = this.bitmap.width,
@@ -14,7 +14,7 @@ Jimp.prototype.dumbSortRows = function dumbsSortRows(cb) {
     data.set(da, i);
   }
 
-  this.bitmap.data = new Buffer(data);
+  this.bitmap.data = Buffer.from(data);
   if (isNodePattern(cb)) return cb.call(this, null, this);
   else return this;
 };

@@ -2,7 +2,7 @@
  * Dither: Bitmask
  * @param {number} mask - number with which to mask each color channel 1-254
  */
-import Jimp from "jimp";
+import { Jimp } from "jimp";
 import { throwError,nullOrUndefined,randRange,isNodePattern } from "../helpers.js";
 Jimp.prototype.ditherBitmask = function ditherBitmask(mask, cb) {
   if (!nullOrUndefined(mask)) {
@@ -24,7 +24,7 @@ Jimp.prototype.ditherBitmask = function ditherBitmask(mask, cb) {
     data[i + 2] |= M;
   }
 
-  this.bitmap.data = new Buffer(data);
+  this.bitmap.data = Buffer.from(data);
   if (isNodePattern(cb)) return cb.call(this, null, this);
   else return this;
 };
