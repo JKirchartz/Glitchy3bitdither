@@ -2,15 +2,6 @@
  * Helper Functions
  ***************************************************/
 
-// Debug flag: Set to true to enable console logging
-const DEBUG = false;
-
-export function debug(...args) {
-  if (DEBUG) {
-    console.log(...args);
-  }
-}
-
 export function throwError(err, cb) {
   debug("throwError called", err);
   if (typeof err === "string") err = new Error(err);
